@@ -1,39 +1,58 @@
 package com.mindex.challenge;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mindex.challenge.dao.EmployeeRepository;
-import com.mindex.challenge.data.Employee;
+import com.mindex.challenge.repository.CompensationRepository;
+import com.mindex.challenge.repository.EmployeeRepository;
+import com.mindex.challenge.model.Employee;
+import com.mindex.challenge.model.Compensation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Component
 public class DataBootstrap {
-    private static final String DATASTORE_LOCATION = "/static/employee_database.json";
+    private static final String EMPLOYEE_DATASTORE_LOCATION = "/static/employee_database.json";
+
+    private static final String COMPENSATION_DATASTORE_LOCATION = "/static/compensation_database.json";
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
     @Autowired
+    private CompensationRepository compensationRepository;
+
+    @Autowired
     private ObjectMapper objectMapper;
 
     @PostConstruct
-    public void init() {
-        InputStream inputStream = this.getClass().getResourceAsStream(DATASTORE_LOCATION);
+    public void init() throws IOException {
+        loadEmployeeData();
+        loadCompensationData();
+    }
 
-        Employee[] employees = null;
+    public void loadEmployeeData() throws IOException {
+        TypeReference<List<Employee>> typeReference = new TypeReference<>(){};
+        InputStream inputStream = typeReference.getClass().getResourceAsStream(EMPLOYEE_DATASTORE_LOCATION);
 
-        try {
-            employees = objectMapper.readValue(inputStream, Employee[].class);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        List<Employee> employees = objectMapper.readValue(inputStream, typeReference);
 
         for (Employee employee : employees) {
-            employeeRepository.insert(employee);
+            employeeRepository.save(employee);
+        }
+    }
+
+    public void loadCompensationData() throws IOException {
+        TypeReference<List<Compensation>> typeReference = new TypeReference<>(){};
+        InputStream inputStream = typeReference.getClass().getResourceAsStream(COMPENSATION_DATASTORE_LOCATION);
+
+        List<Compensation> compensations = objectMapper.readValue(inputStream, typeReference);
+
+        for (Compensation compensation : compensations) {
+            compensationRepository.save(compensation);
         }
     }
 }

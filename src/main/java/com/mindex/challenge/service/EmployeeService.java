@@ -1,9 +1,9 @@
 package com.mindex.challenge.service;
 
-import com.mindex.challenge.data.Employee;
+import com.mindex.challenge.dto.model.EmployeeDto;
 
 public interface EmployeeService {
-    Employee create(Employee employee);
-    Employee read(String id);
-    Employee update(Employee employee);
+    EmployeeDto getEmployeeById(String id);
+    EmployeeDto updateEmployee(EmployeeDto employeeDto);
+    EmployeeDto createEmployee(EmployeeDto employeeDto);
 }

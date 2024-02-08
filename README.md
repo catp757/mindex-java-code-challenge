@@ -13,18 +13,38 @@ The following endpoints are available to use:
 ```
 * CREATE
     * HTTP Method: POST 
-    * URL: localhost:8080/employee
+    * URL: localhost:8080/api/v1/employee
     * PAYLOAD: Employee
     * RESPONSE: Employee
 * READ
     * HTTP Method: GET 
-    * URL: localhost:8080/employee/{id}
+    * URL: localhost:8080/api/v1/employee/{id}
     * RESPONSE: Employee
 * UPDATE
     * HTTP Method: PUT 
-    * URL: localhost:8080/employee/{id}
+    * URL: localhost:8080/api/v1/employee/{id}
     * PAYLOAD: Employee
     * RESPONSE: Employee
+	
+* CREATE
+    * HTTP Method: POST 
+    * URL: localhost:8080/api/v1/compensation
+    * PAYLOAD: compensation
+    * RESPONSE: compensation
+* READ
+    * HTTP Method: GET 
+    * URL: localhost:8080/api/v1/compensation/{id}
+    * RESPONSE: compensation
+* UPDATE
+    * HTTP Method: PUT 
+    * URL: localhost:8080/api/v1/compensation/{id}
+    * PAYLOAD: compensation
+    * RESPONSE: compensation
+	
+* READ
+    * HTTP Method: GET 
+    * URL: localhost:8080/api/v1/employee/reportingStructure/{id}
+    * RESPONSE: reportingStructure	
 ```
 The Employee has a JSON schema of:
 ```json
