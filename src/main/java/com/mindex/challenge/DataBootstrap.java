@@ -35,7 +35,7 @@ public class DataBootstrap {
     }
 
     public void loadEmployeeData() throws IOException {
-        TypeReference<List<Employee>> typeReference = new TypeReference<>(){};
+        TypeReference<List<Employee>> typeReference = new TypeReference<List<Employee>>(){};
         InputStream inputStream = typeReference.getClass().getResourceAsStream(EMPLOYEE_DATASTORE_LOCATION);
 
         List<Employee> employees = objectMapper.readValue(inputStream, typeReference);
@@ -46,7 +46,7 @@ public class DataBootstrap {
     }
 
     public void loadCompensationData() throws IOException {
-        TypeReference<List<Compensation>> typeReference = new TypeReference<>(){};
+        TypeReference<List<Compensation>> typeReference = new TypeReference<List<Compensation>>(){};
         InputStream inputStream = typeReference.getClass().getResourceAsStream(COMPENSATION_DATASTORE_LOCATION);
 
         List<Compensation> compensations = objectMapper.readValue(inputStream, typeReference);
